@@ -65,6 +65,7 @@ class TurtleWorld(object):
         self.fps = 0
         self.done = True
         self.turtles = []
+        self.obstacles = []
         self.update_freq = 1000 #int(1 / 30.0 * 1000)
 
     def position_turtle(self, t, pos, angle):
@@ -107,6 +108,16 @@ class TurtleWorld(object):
         turtle.hideturtle()
         turtle.clear()
         self.turtles.remove(turtle)
+
+    def add_obstacle(self, obstacle):
+        self.obstacles.append(obstacle)
+        self.add_turtle(obstacle)
+
+    def something_at(self, pos):
+        for obstacle in self.obstacles:
+            if obstacle.contains(pos[0], pos[1]):
+                return True
+        return False
 
     def run(self, ticks=1000):
         # run for 1000 ticks
